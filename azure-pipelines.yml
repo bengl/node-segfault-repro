@@ -1,0 +1,28 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-18.04
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    yarn install
+  displayName: 'yarn install'
+
+- script: |
+    yarn docker:build
+  displayName: 'yarn docker:build'
+
+- script: |
+    yarn docker:run
+  displayName: 'yarn docker:run'
