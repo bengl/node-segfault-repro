@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "jest --runInBand --forceExit --detectOpenHandles",
+    "test": "jest --detectOpenHandles",
     "docker:build": "docker build -t demo-segfault .",
     "docker:run": "docker run -t demo-segfault"
   },

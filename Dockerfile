@@ -6,18 +6,20 @@ RUN apt-get update && apt-get install -y curl && \
     curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
     apt-get install -y nodejs
 
-RUN node -v
-
 RUN npm install -g yarn@1.22.10
 
 WORKDIR /app
-
 COPY package.json yarn.lock /app/
 
 RUN yarn install --frozen-lockfile
 
-# RUN yarn add segfault-handler
+RUN node -v
+RUN npm install --global node-nightly
+RUN node-nightly
+RUN node-nightly -v
 
 COPY . /app
 
-ENTRYPOINT ["/bin/sh", "-c", "yarn test"]
+# Fails on node entrypoint (v16.13.0) but works for node-nightly
+# ENTRYPOINT ["/bin/sh", "-c", "node-nightly node_modules/jest/bin/jest.js --detectOpenHandles"]
+ENTRYPOINT ["/bin/sh", "-c", "node node_modules/jest/bin/jest.js --detectOpenHandles"]
