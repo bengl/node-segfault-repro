@@ -2,7 +2,8 @@
   "scripts": {
     "test": "jest --detectOpenHandles",
     "docker:build": "docker build -t demo-segfault .",
-    "docker:run": "docker run -t demo-segfault"
+    "docker:run": "docker run -it demo-segfault",
+    "docker:bash": "docker run --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it --rm --entrypoint /bin/bash demo-segfault"
   },
   "dependencies": {
     "jest": "27.0.4"

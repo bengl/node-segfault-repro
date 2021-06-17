@@ -18,6 +18,10 @@ RUN npm install --global node-nightly
 RUN node-nightly
 RUN node-nightly -v
 
+RUN apt-get install -y lldb build-essential liblldb-6.0-dev
+
+RUN npm i -g llnode
+
 COPY . /app
 
 # Fails on node entrypoint (v16.13.0) but works for node-nightly
